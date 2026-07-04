@@ -8,4 +8,9 @@ on:
 
 jobs:
     build:
-        uses: ivanbyone/pet-support-chat/.github/workflows/build.yml@v1
+        strategy:
+            matrix: 
+                version: [21, 25, 26]
+        uses: ivanbyone/pet-support-chat/.github/workflows/build.yml@feature/settings
+        with:
+            java-version: ${{ matrix.version }}
