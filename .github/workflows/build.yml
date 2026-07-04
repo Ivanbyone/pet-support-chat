@@ -1,0 +1,25 @@
+name: Build workflow
+
+on:
+    workflow_call:
+        inputs:
+            java-version:
+                required: true
+                type: string
+
+jobs:
+    backend-build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v6
+            - name: Setup JDK ${{ inputs.java-version }}
+              uses: actions/setup-java@v5 
+              with:
+                java-version: ${{ inputs.java-version }}
+                distribution: 'temurin'
+                architecture: x64
+                cache: 'maven'
+            - name: Build JAR
+              run: |
+                cd chat-backend
+                mvn --batch-mode clean install -DskipTests

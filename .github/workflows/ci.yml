@@ -1,0 +1,16 @@
+name: CI
+
+on:
+    pull_request:
+        branches:
+            - master
+            - develop
+
+jobs:
+    build:
+        strategy:
+            matrix: 
+                version: [21, 25, 26]
+        uses: ivanbyone/pet-support-chat/.github/workflows/build.yml@feature/settings
+        with:
+            java-version: ${{ matrix.version }}
