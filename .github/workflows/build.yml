@@ -1,0 +1,24 @@
+name: Build workflow
+
+on:
+    workflow_call:
+        inputs:
+            java-version:
+                required: true
+                type: string
+
+jobs:
+    backend-build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v6
+            - name: Setup JDK ${{ inputs.java-version }}
+              uses: actions/setup-java@v4
+              with:
+                java-version: ${{ inputs.java-version }}
+                distribution: 'coretto'
+                architecture: x64
+                cache: 'maven'
+            - name: Build JAR
+              run: mvn --batch-mode clean install -DskipTests
+              

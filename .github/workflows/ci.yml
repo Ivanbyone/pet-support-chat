@@ -1,0 +1,11 @@
+name: CI
+
+on:
+    pull_request:
+        branches:
+            - master
+            - develop
+
+jobs:
+    build:
+        uses: ivanbyone/pet-support-chat/.github/workflows/build.yml@v1
