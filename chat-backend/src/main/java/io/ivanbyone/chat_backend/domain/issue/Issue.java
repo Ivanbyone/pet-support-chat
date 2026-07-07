@@ -3,7 +3,7 @@ package io.ivanbyone.chat_backend.domain.issue;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-public class Issue {
+public final class Issue {
     private Integer id;
     private String title;
     private String description;
@@ -36,13 +36,18 @@ public class Issue {
         return this;
     }
 
-    public Issue changeTitle(String title) {
+    public Issue update(UpdatableIssueFields update) {
+        return this.updateTitle(update.title())
+                .updateDescription(update.description());
+    }
+
+    private Issue updateTitle(String title) {
         Optional.ofNullable(title)
                 .ifPresent(value -> this.title = value);
         return this;
     }
 
-    public Issue changeDescription(String description) {
+    private Issue updateDescription(String description) {
         Optional.ofNullable(description)
                 .ifPresent(value -> this.description = value);
         return this;

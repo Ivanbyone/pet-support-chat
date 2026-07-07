@@ -47,8 +47,7 @@ public class IssueUseCase {
     public IssueOutput updateIssue(Integer id, IssueUpdate input) {
         Issue model = issueRepository.findIssueById(id)
                 .orElseThrow(() -> new NotFoundException("Issue with id %s not found".formatted(id)))
-                .changeTitle(input.title())
-                .changeDescription(input.description());
+                .update(input);
 
         Issue saved = issueRepository.save(model);
 
