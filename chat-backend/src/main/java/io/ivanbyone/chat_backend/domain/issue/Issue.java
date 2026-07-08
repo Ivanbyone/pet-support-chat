@@ -1,5 +1,7 @@
 package io.ivanbyone.chat_backend.domain.issue;
 
+import io.ivanbyone.chat_backend.domain.exception.DomainBusinessException;
+
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -22,16 +24,25 @@ public final class Issue {
     }
 
     public Issue open() {
+        if (status == IssueStatus.OPENED || status == IssueStatus.IN_WORK) {
+            throw new DomainBusinessException("Invalid status change: %s -> OPENED".formatted(status));
+        }
         status = IssueStatus.OPENED;
         return this;
     }
 
     public Issue inWork() {
+        if (status != IssueStatus.OPENED) {
+            throw new DomainBusinessException("Invalid status change: %s -> IN_WORK".formatted(status));
+        }
         status = IssueStatus.IN_WORK;
         return this;
     }
 
     public Issue close() {
+        if (status != IssueStatus.IN_WORK) {
+            throw new DomainBusinessException("Invalid status change: %s -> CLOSED".formatted(status));
+        }
         status = IssueStatus.CLOSED;
         return this;
     }
