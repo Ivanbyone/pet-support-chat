@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="Regress">
+    <test name="Unit">
+        <packages>
+            <package name="io.ivanbyone.chat_backend.unit" />
+        </packages>
+    </test>
+</suite>
