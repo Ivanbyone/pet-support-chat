@@ -2,6 +2,8 @@ package io.ivanbyone.chat_backend.config.exception;
 
 import io.ivanbyone.chat_backend.adapter.web.dto.ResponseDto;
 import io.ivanbyone.chat_backend.application.exception.AlreadyExistsException;
+import io.ivanbyone.chat_backend.application.exception.NotFoundException;
+import io.ivanbyone.chat_backend.domain.exception.DomainBusinessException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,22 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 @SuppressWarnings("unused")
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(DomainBusinessException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseDto<?> handleDomainBusinessException(DomainBusinessException error) {
+        String message = error.getLocalizedMessage();
+        log.warn(message);
+        return ResponseDto.error(message, HttpStatus.BAD_REQUEST.value());
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseDto<?> handleNotFoundException(NotFoundException error) {
+        String message = error.getLocalizedMessage();
+        log.warn(message);
+        return ResponseDto.error(message, HttpStatus.NOT_FOUND.value());
+    }
 
     @ExceptionHandler(AlreadyExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
