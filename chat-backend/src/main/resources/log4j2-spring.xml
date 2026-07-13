@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="DEBUG">
+    <Appenders>
+        <File name="APP_FILE" fileName="logs/PetSupportChat.log">
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+        </File>
+        <File name="CATALINA" fileName="logs/catalina.log">
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Logger name="io.ivanbyone.chat_backend" level="debug" additivity="false">
+            <AppenderRef ref="APP_FILE" />
+        </Logger>
+        <Logger name="org.apache.catalina" level="debug" additivity="false">
+            <AppenderRef ref="CATALINA" />
+        </Logger>
+
+        <Root level="error">
+            <AppenderRef ref="APP_FILE"/>
+        </Root>
+    </Loggers>
+</Configuration>
