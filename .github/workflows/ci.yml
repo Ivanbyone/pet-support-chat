@@ -20,5 +20,6 @@ jobs:
             matrix: 
                 groups: ['unit']
         uses: ivanbyone/pet-support-chat/.github/workflows/test.yml@feature/issue
+        needs: build
         with:
             group: ${{ matrix.groups }}
