@@ -65,4 +65,12 @@ public class IssueUseCase {
         Issue saved = issueRepository.save(model);
         return issueMapper.toDto(saved);
     }
+
+    public IssueOutput reopenIssue(Integer id) {
+        Issue model = issueRepository.findIssueById(id)
+                .orElseThrow(() -> new NotFoundException("Issue with id %s not found".formatted(id)))
+                .open();
+        Issue saved = issueRepository.save(model);
+        return issueMapper.toDto(saved);
+    }
 }

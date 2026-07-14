@@ -145,4 +145,19 @@ public class IssueUseCaseTest {
         verify(issueRepository, never()).save(any());
         verify(issueMapper, never()).toDto(any());
     }
+
+    @Test(testName = "Don't set OPENED status if not found", groups = "unit")
+    public void shouldNotUpdateOpenedStatus() {
+        // Given
+        Integer id = 1;
+        when(issueRepository.findIssueById(id)).thenReturn(Optional.empty());
+
+        // When/Then
+        assertThatThrownBy(() -> issueUseCase.reopenIssue(id))
+                .isInstanceOf(NotFoundException.class)
+                .hasMessageContaining("Issue with id 1 not found");
+
+        verify(issueRepository, never()).save(any());
+        verify(issueMapper, never()).toDto(any());
+    }
 }

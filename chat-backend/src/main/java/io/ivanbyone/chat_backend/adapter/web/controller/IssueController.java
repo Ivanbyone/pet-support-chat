@@ -62,4 +62,11 @@ public class IssueController {
         IssueOutput output = issueUseCase.closeIssue(id, update);
         return ResponseDto.success(output, HttpStatus.OK.value());
     }
+
+    @PatchMapping("/{id}/reopen")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseDto<IssueOutput> useReopenAction(@PathVariable("id") Integer id) {
+        IssueOutput output = issueUseCase.reopenIssue(id);
+        return ResponseDto.success(output, HttpStatus.OK.value());
+    }
 }
