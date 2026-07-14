@@ -11,6 +11,14 @@ jobs:
         strategy:
             matrix: 
                 version: [21, 25, 26]
-        uses: ivanbyone/pet-support-chat/.github/workflows/build.yml@feature/settings
+        uses: ivanbyone/pet-support-chat/.github/workflows/build.yml@develop
         with:
             java-version: ${{ matrix.version }}
+
+    test:
+        strategy:
+            matrix: 
+                groups: ['unit']
+        uses: ivanbyone/pet-support-chat/.github/workflows/build.yml@feature/issue
+        with:
+            group: ${{ matrix.groups }}

@@ -6,4 +6,9 @@
             <package name="io.ivanbyone.chat_backend.unit" />
         </packages>
     </test>
+    <test name="E2E">
+        <packages>
+            <package name="io.ivanbyone.chat_backend.e2e" />
+        </packages>
+    </test>
 </suite>
