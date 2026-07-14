@@ -10,17 +10,13 @@ public final class Issue {
     private String title;
     private String description;
     private IssueStatus status;
+    private String decision;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private Long version;
 
     public Issue() {
 
-    }
-
-    public Issue(String title, String description) {
-        this.title = title;
-        this.description = description;
     }
 
     public Issue open() {
@@ -61,6 +57,15 @@ public final class Issue {
     private Issue updateDescription(String description) {
         Optional.ofNullable(description)
                 .ifPresent(value -> this.description = value);
+        return this;
+    }
+
+    public Issue updateDecision(String decision) {
+        Optional.ofNullable(decision)
+                .ifPresentOrElse(
+                        value -> this.decision = value,
+                        () -> { throw new DomainBusinessException("For close Issue decision is required."); }
+                );
         return this;
     }
 
@@ -120,5 +125,13 @@ public final class Issue {
 
     public void setVersion(Long version) {
         this.version = version;
+    }
+
+    public String getDecision() {
+        return decision;
+    }
+
+    public void setDecision(String decision) {
+        this.decision = decision;
     }
 }

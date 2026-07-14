@@ -27,13 +27,10 @@ public class IssueUseCase {
                             "Issue with title \"%s\" already exists".formatted(input.title())
                     );
                 });
-
         // Map input DTO to domain model "Issue"
         Issue model = issueMapper.fromDto(input).open();
-
         // Save issue in database
         Issue saved = issueRepository.save(model);
-
         // Map and return output DTO from domain model "Issue"
         return issueMapper.toDto(saved);
     }
@@ -48,9 +45,24 @@ public class IssueUseCase {
         Issue model = issueRepository.findIssueById(id)
                 .orElseThrow(() -> new NotFoundException("Issue with id %s not found".formatted(id)))
                 .update(input);
-
         Issue saved = issueRepository.save(model);
+        return issueMapper.toDto(saved);
+    }
 
+    public IssueOutput inWorkIssue(Integer id) {
+        Issue model = issueRepository.findIssueById(id)
+                .orElseThrow(() -> new NotFoundException("Issue with id %s not found".formatted(id)))
+                .inWork();
+        Issue saved = issueRepository.save(model);
+        return issueMapper.toDto(saved);
+    }
+
+    public IssueOutput closeIssue(Integer id, IssueUpdate update) {
+        Issue model = issueRepository.findIssueById(id)
+                .orElseThrow(() -> new NotFoundException("Issue with id %s not found".formatted(id)))
+                .updateDecision(update.decision())
+                .close();
+        Issue saved = issueRepository.save(model);
         return issueMapper.toDto(saved);
     }
 }

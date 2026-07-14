@@ -41,6 +41,14 @@ public class IssueDomainTest {
         };
     }
 
+    @DataProvider
+    public Object[][] validDecisionVars() {
+        return new Object[][] {
+                { "Test Decision", "Test Decision" },
+                { ".", "." }
+        };
+    }
+
     @Test(testName = "Set correct status when anyone opens new issue", groups = "unit")
     public void shouldCorrectOpenIssue() {
         // Business process: -> OPENED
@@ -144,7 +152,7 @@ public class IssueDomainTest {
 
     @Test(testName = "Valid update title", groups = "unit", dataProvider = "validTitleVars")
     public void shouldUpdateValidTitle(String provided, String expected) {
-        UpdatableIssueFields data = new IssueUpdate(provided, null);
+        UpdatableIssueFields data = new IssueUpdate(provided, null, null);
         Issue result = model.update(data);
 
         assertThat(result.getTitle()).isEqualTo(expected);
@@ -152,9 +160,17 @@ public class IssueDomainTest {
 
     @Test(testName = "Valid update description", groups = "unit", dataProvider = "validDescriptionVars")
     public void shouldUpdateValidDescription(String provided, String expected) {
-        UpdatableIssueFields data = new IssueUpdate(null, provided);
+        UpdatableIssueFields data = new IssueUpdate(null, provided, null);
         Issue result = model.update(data);
 
         assertThat(result.getDescription()).isEqualTo(expected);
+    }
+
+    @Test(testName = "Valid update decision", groups = "unit", dataProvider = "validDecisionVars")
+    public void shouldUpdateValidDecision(String provided, String expected) {
+        UpdatableIssueFields data = new IssueUpdate(null, null, provided);
+        Issue result = model.updateDecision(data.decision());
+
+        assertThat(result.getDecision()).isEqualTo(expected);
     }
 }

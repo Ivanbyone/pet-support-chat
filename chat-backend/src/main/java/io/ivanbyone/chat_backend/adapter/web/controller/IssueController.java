@@ -40,8 +40,26 @@ public class IssueController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseDto<IssueOutput> updateIssue(@PathVariable("id") Integer id, @RequestBody IssueUpdate input) {
-        IssueOutput output = issueUseCase.updateIssue(id, input);
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseDto<IssueOutput> updateIssue(
+            @PathVariable("id") Integer id,
+            @RequestBody(required = false) IssueUpdate update
+    ) {
+        IssueOutput output = issueUseCase.updateIssue(id, update);
+        return ResponseDto.success(output, HttpStatus.OK.value());
+    }
+
+    @PatchMapping("/{id}/in-work")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseDto<IssueOutput> useInWorkAction(@PathVariable("id") Integer id) {
+        IssueOutput output = issueUseCase.inWorkIssue(id);
+        return ResponseDto.success(output, HttpStatus.OK.value());
+    }
+
+    @PatchMapping("/{id}/close")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseDto<IssueOutput> useCloseAction(@PathVariable("id") Integer id, @RequestBody IssueUpdate update) {
+        IssueOutput output = issueUseCase.closeIssue(id, update);
         return ResponseDto.success(output, HttpStatus.OK.value());
     }
 }

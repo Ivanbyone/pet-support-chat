@@ -4,5 +4,6 @@ import io.ivanbyone.chat_backend.domain.issue.UpdatableIssueFields;
 
 public record IssueUpdate(
         String title,
-        String description
+        String description,
+        String decision
 ) implements UpdatableIssueFields {}

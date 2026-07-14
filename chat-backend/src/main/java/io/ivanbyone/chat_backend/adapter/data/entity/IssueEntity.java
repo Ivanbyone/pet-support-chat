@@ -31,6 +31,9 @@ public class IssueEntity {
     @Column(name = "status", nullable = false)
     private IssueStatus status;
 
+    @Column(name = "decision", columnDefinition = "TEXT")
+    private String decision;
+
     @Version
     @Column(name = "version")
     private Long version;

@@ -9,6 +9,7 @@ public record IssueOutput(
         String title,
         String description,
         IssueStatus status,
+        String decision,
         LocalDateTime createdAt,
         LocalDateTime updatedAt,
         Long version

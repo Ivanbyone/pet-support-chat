@@ -22,6 +22,7 @@ public class IssueDtoMapper implements IssueMapper {
                 model.getTitle(),
                 model.getDescription(),
                 model.getStatus(),
+                model.getDecision(),
                 model.getCreatedAt(),
                 model.getUpdatedAt(),
                 model.getVersion()

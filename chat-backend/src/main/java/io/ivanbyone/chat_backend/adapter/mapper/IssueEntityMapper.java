@@ -13,6 +13,7 @@ public class IssueEntityMapper {
         entity.setTitle(model.getTitle());
         entity.setDescription(model.getDescription());
         entity.setStatus(model.getStatus());
+        entity.setDecision(model.getDecision());
         entity.setCreatedAt(model.getCreatedAt());
         entity.setUpdatedAt(model.getUpdatedAt());
         entity.setVersion(model.getVersion());
@@ -25,6 +26,7 @@ public class IssueEntityMapper {
         model.setTitle(entity.getTitle());
         model.setDescription(entity.getDescription());
         model.setStatus(entity.getStatus());
+        model.setDecision(entity.getDecision());
         model.setCreatedAt(entity.getCreatedAt());
         model.setUpdatedAt(entity.getUpdatedAt());
         model.setVersion(entity.getVersion());
