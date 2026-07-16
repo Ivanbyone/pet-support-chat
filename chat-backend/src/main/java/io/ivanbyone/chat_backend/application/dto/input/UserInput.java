@@ -7,4 +7,10 @@ public record UserInput(
         String username,
         String password,
         UserRole role
-) implements UserFields {}
+) implements UserFields {
+
+    @Override
+    public String toString() {
+        return "UserInput(username=" + username + ", role=" + role + ")";
+    }
+}

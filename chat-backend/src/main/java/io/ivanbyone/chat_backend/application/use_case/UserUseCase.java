@@ -1,5 +1,6 @@
 package io.ivanbyone.chat_backend.application.use_case;
 
+import io.ivanbyone.chat_backend.application.HashService;
 import io.ivanbyone.chat_backend.application.dto.input.UserInput;
 import io.ivanbyone.chat_backend.application.dto.output.UserOutput;
 import io.ivanbyone.chat_backend.application.exception.AlreadyExistsException;
@@ -12,10 +13,12 @@ public class UserUseCase {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final HashService hashService;
 
-    public UserUseCase(UserRepository userRepository, UserMapper userMapper) {
+    public UserUseCase(UserRepository userRepository, UserMapper userMapper, HashService hashService) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
+        this.hashService = hashService;
     }
 
     public UserOutput registration(UserInput input) {
@@ -23,7 +26,8 @@ public class UserUseCase {
                 .ifPresent(value -> {
                     throw new AlreadyExistsException("User with such username already exists");
                 });
-        User model = userMapper.fromDto(input);
+        String encoded = hashService.hash(input.password());
+        User model = userMapper.fromDto(input, encoded);
         User saved = userRepository.save(model);
         return userMapper.toDto(saved);
     }

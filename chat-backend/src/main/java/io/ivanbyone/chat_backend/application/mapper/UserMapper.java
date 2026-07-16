@@ -6,7 +6,7 @@ import io.ivanbyone.chat_backend.domain.user.User;
 
 public interface UserMapper {
 
-    User fromDto(UserInput input);
+    User fromDto(UserInput input, String password);
 
     UserOutput toDto(User model);
 }

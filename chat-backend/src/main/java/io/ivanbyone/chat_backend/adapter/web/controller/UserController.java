@@ -4,10 +4,12 @@ import io.ivanbyone.chat_backend.adapter.web.dto.ResponseDto;
 import io.ivanbyone.chat_backend.application.dto.input.UserInput;
 import io.ivanbyone.chat_backend.application.dto.output.UserOutput;
 import io.ivanbyone.chat_backend.application.use_case.UserUseCase;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+@Log4j2
 @RestController
 @RequestMapping("/v1/user")
 public class UserController {
@@ -22,6 +24,7 @@ public class UserController {
     @PostMapping("/auth/registration")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseDto<UserOutput> registration(@RequestBody UserInput input) {
+        log.debug("Request body: {}", input);
         UserOutput output = userUseCase.registration(input);
         return ResponseDto.success(output, HttpStatus.CREATED.value());
     }

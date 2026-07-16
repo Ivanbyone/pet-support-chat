@@ -27,8 +27,11 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User save(User model) {
         UserEntity entity = mapper.toEntity(model);
-        log.info(entity);
+        log.debug("Before saving: {}", entity.toString());
+
         UserEntity saved = repository.save(entity);
+        log.debug("After saving: {}", saved.toString());
+
         return mapper.fromEntity(saved);
     }
 

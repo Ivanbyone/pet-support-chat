@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 public class UserDtoMapper implements UserMapper {
 
     @Override
-    public User fromDto(UserInput input) {
-        return User.create(input);
+    public User fromDto(UserInput input, String password) {
+        return User.create(input.username(), password, input.role());
     }
 
     @Override

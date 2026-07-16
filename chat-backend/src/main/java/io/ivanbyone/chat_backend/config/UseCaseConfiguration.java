@@ -1,5 +1,6 @@
 package io.ivanbyone.chat_backend.config;
 
+import io.ivanbyone.chat_backend.application.HashService;
 import io.ivanbyone.chat_backend.application.mapper.IssueMapper;
 import io.ivanbyone.chat_backend.application.mapper.UserMapper;
 import io.ivanbyone.chat_backend.application.use_case.IssueUseCase;
@@ -18,7 +19,7 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public UserUseCase userUseCase(UserRepository repository, UserMapper mapper) {
-        return new UserUseCase(repository, mapper);
+    public UserUseCase userUseCase(UserRepository repository, UserMapper mapper, HashService hashService) {
+        return new UserUseCase(repository, mapper, hashService);
     }
 }

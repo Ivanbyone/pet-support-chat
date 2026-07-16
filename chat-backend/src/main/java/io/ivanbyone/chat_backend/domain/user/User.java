@@ -19,11 +19,11 @@ public final class User {
 
     }
 
-    public static User create(UserFields fields) {
+    public static User create(String username, String encodedPassword, UserRole role) {
         return new User()
-                .validateAndSetUsername(fields.username())
-                .validateAndSetPassword(fields.password())
-                .validateAndSetRole(fields.role());
+                .validateAndSetUsername(username)
+                .validateAndSetPassword(encodedPassword)
+                .validateAndSetRole(role);
     }
 
     private User validateAndSetUsername(String username) {
